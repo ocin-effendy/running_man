@@ -8,7 +8,6 @@ Widget livesHud(TinyGame gameref) {
     builder: (BuildContext context, int value, Widget? child) {
       List<Widget> list = [];
       if (value <= 0) {
-        // FlameAudio.play('death.mp3', volume: 70);
         AudioSfx.death.resume();
       }
       for (int i = 0; i < 3; i++) {

@@ -1,8 +1,5 @@
 import 'package:flame_audio/flame_audio.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:running_man/main.dart';
 import 'package:running_man/packages/audio_player.dart';
 import 'package:running_man/screens/about.dart';
@@ -42,7 +39,6 @@ class MainMenu extends StatelessWidget {
                 padding: const EdgeInsets.only(top: 15.0),
                 child: MaterialButton(
                   onPressed: () {
-                    // FlameAudio.play('click.wav');
                     AudioSfx.click.resume();
 
                     Navigator.push(
@@ -65,7 +61,6 @@ class MainMenu extends StatelessWidget {
                 padding: const EdgeInsets.only(top: 15.0),
                 child: MaterialButton(
                   onPressed: () {
-                    // FlameAudio.play('click.wav');
                     AudioSfx.click.resume();
 
                     Navigator.push(
@@ -86,7 +81,6 @@ class MainMenu extends StatelessWidget {
                 padding: const EdgeInsets.only(top: 15.0),
                 child: MaterialButton(
                   onPressed: () {
-                    // FlameAudio.play('click.wav');
                     AudioSfx.click.resume();
 
                     Navigator.push(

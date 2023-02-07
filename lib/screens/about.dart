@@ -82,7 +82,6 @@ class AboutApp extends StatelessWidget {
             ),
             alignment: Alignment.topLeft,
             onPressed: () {
-              // FlameAudio.play('click.wav');
               AudioSfx.click.resume();
               Navigator.pop(context);
             },

@@ -5,14 +5,14 @@ import 'package:flame/parallax.dart';
 import 'package:flame_audio/flame_audio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-// import 'package:my_game/packages/enemy_generator.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:running_man/game/man.dart';
+import 'package:running_man/packages/enemy_generator.dart';
 
 class TinyGame extends FlameGame
     with KeyboardEvents, TapDetector, HasCollisionDetection {
-  late Man man; // Animations for the Owlet
-  // late EnemyGenerator enemyGenerator;
+  late Man man; // Animations for the Man
+  late EnemyGenerator enemyGenerator;
   late ParallaxComponent parallaxComponent; // Map
   late TextComponent scoreComponent;
   late TextComponent scoreTitle;
@@ -23,7 +23,7 @@ class TinyGame extends FlameGame
   static final player = FlameAudio.bgm.audioPlayer;
 
   TinyGame() {
-    // enemyGenerator = EnemyGenerator();
+    enemyGenerator = EnemyGenerator();
     scoreComponent = TextComponent();
     scoreTitle = TextComponent();
   }
@@ -73,8 +73,8 @@ class TinyGame extends FlameGame
     addAll([
       parallaxComponent,
       man,
-      // owlet.dust,
-      // enemyGenerator,
+      man.dust,
+      enemyGenerator,
       scoreTitle,
       scoreComponent,
     ]);
@@ -96,12 +96,12 @@ class TinyGame extends FlameGame
     scoreComponent.text = score.toStringAsFixed(0);
 
     // Smoke run / jump Animation
-    // if (!man.onGround()) {
-    //   man.dust.jumpDust();
-    // }
-    // if (owlet.onGround()) {
-    //   owlet.dust.runDust();
-    // }
+    if (!man.onGround()) {
+      man.dust.jumpDust();
+    }
+    if (man.onGround()) {
+      man.dust.runDust();
+    }
 
     super.update(dt);
   }
@@ -128,7 +128,7 @@ class TinyGame extends FlameGame
   void gameOver() async {
     if (man.life.value <= 0) {
       player.stop();
-      // enemyGenerator.removeAllEnemy();
+      enemyGenerator.removeAllEnemy();
       scoreComponent.removeFromParent();
       scoreTitle.removeFromParent();
       man.die();

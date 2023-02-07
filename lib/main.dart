@@ -5,6 +5,7 @@ import 'package:flame_splash_screen/flame_splash_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:running_man/game/game.dart';
+import 'package:running_man/screens/game.over.dart';
 import 'package:running_man/screens/lives.dart';
 import 'package:running_man/screens/main_menu.dart';
 
@@ -25,7 +26,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     FlutterNativeSplash.remove();
     return MaterialApp(
-      title: "Owlet Run",
+      title: "Running Man",
       debugShowCheckedModeBanner: false,
       home: FlameSplashScreen(
         theme: FlameSplashTheme.dark,
@@ -99,9 +100,9 @@ class _MyGameAppState extends State<MyGameApp>
         'Lives': (context, game) {
           return livesHud(_myGame);
         },
-        // 'Game Over': (icontext, game) {
-        //   return gameOver(context, _myGame);
-        // }
+        'Game Over': (icontext, game) {
+          return gameOver(context, _myGame);
+        }
       },
     );
   }

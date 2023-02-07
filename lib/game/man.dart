@@ -4,12 +4,12 @@ import 'package:flame/flame.dart';
 import 'package:flame/image_composition.dart';
 import 'package:flame/sprite.dart';
 import 'package:flutter/foundation.dart';
+import 'package:running_man/game/dust.dart';
+import 'package:running_man/game/enemy.dart';
 import 'package:running_man/packages/audio_player.dart';
-// import 'package:my_game/game/dust.dart';
-// import 'package:my_game/game/enemy.dart';
 
 class Man extends SpriteAnimationComponent with CollisionCallbacks {
-  // late Dust dust; // Dust of the Owlet
+  late Dust dust; // Dust of the Man
 
   static late SpriteAnimation _idleAnimation; // idle
   static late SpriteAnimation _runAnimation; // Run
@@ -47,18 +47,19 @@ class Man extends SpriteAnimationComponent with CollisionCallbacks {
     _runAnimation = runSprite.createAnimation(row: 0, stepTime: 0.1);
 
     // Hurt Animation initialization
-    // Image manHurtImage = await Flame.images.load('Man/hurt.png');
-    // final hurtSprite =
-    //     SpriteSheet(image: manHurtImage, srcSize: Vector2(12, 12));
-    // _hurtAnimation = hurtSprite.createAnimation(row: 0, stepTime: 0.1);
+    Image manHurtImage = await Flame.images.load('Man/hurt.png');
+    final hurtSprite =
+        SpriteSheet(image: manHurtImage, srcSize: Vector2(32, 32));
+    _hurtAnimation = hurtSprite.createAnimation(row: 0, stepTime: 0.1);
 
     // Death Animation initialization
-    // Image owletDeathImage =await Flame.images.load('Man/Man_Death_8.png');
-    // final deathSprite = SpriteSheet(image: owletDeathImage, srcSize: Vector2(32, 32));
-    // _deathAnimation = deathSprite.createAnimation(row: 0, stepTime: 0.1);
+    Image manDeathImage = await Flame.images.load('Man/death.png');
+    final deathSprite =
+        SpriteSheet(image: manDeathImage, srcSize: Vector2(32, 32));
+    _deathAnimation = deathSprite.createAnimation(row: 0, stepTime: 0.1);
 
     man.animation = _runAnimation; // default animation is to run
-    // owl.dust = await Dust.create();
+    man.dust = await Dust.create();
     return man;
   }
 
@@ -125,7 +126,6 @@ class Man extends SpriteAnimationComponent with CollisionCallbacks {
 
   void jump() {
     if (onGround()) {
-      // FlameAudio.play('jump.wav');
       AudioSfx.jump.resume();
       !isHit ? idle() : hurt();
       speedY = initialV;
@@ -134,14 +134,13 @@ class Man extends SpriteAnimationComponent with CollisionCallbacks {
 
   @override
   void onCollision(Set<Vector2> intersectionPoints, PositionComponent other) {
-    // if ((other is Enemy && !isHit)) {
-    //   hurt();
-    //   // FlameAudio.play('hurt.mp3');
-    //   AudioSfx.hurt.resume();
-    //   life.value -= 1;
-    //   isHit = true;
-    //   _timer.start();
-    // }
+    if ((other is Enemy && !isHit)) {
+      hurt();
+      AudioSfx.hurt.resume();
+      life.value -= 1;
+      isHit = true;
+      _timer.start();
+    }
     super.onCollision(intersectionPoints, other);
   }
 }

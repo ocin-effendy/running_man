@@ -70,6 +70,8 @@ flutter:
   assets:
     - assets/images/
     - assets/images/Man/
+    - assets/images/Bird/
+    - assets/images/Chicken/
     - assets/images/Background/
     - assets/audio/
 
